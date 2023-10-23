@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_23_145909) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_23_153432) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -33,6 +33,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_145909) do
     t.datetime "updated_at", null: false
     t.index ["recipient_id"], name: "index_follow_requests_on_recipient_id"
     t.index ["sender_id"], name: "index_follow_requests_on_sender_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "fan_id", null: false
+    t.bigint "photo_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fan_id"], name: "index_likes_on_fan_id"
+    t.index ["photo_id"], name: "index_likes_on_photo_id"
   end
 
   create_table "photos", force: :cascade do |t|
@@ -58,6 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_145909) do
     t.integer "comments_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "photos_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
@@ -67,5 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_145909) do
   add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "follow_requests", "users", column: "recipient_id"
   add_foreign_key "follow_requests", "users", column: "sender_id"
+  add_foreign_key "likes", "photos"
+  add_foreign_key "likes", "users", column: "fan_id"
   add_foreign_key "photos", "users", column: "owner_id"
 end
