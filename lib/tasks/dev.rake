@@ -4,18 +4,22 @@ task({ :sample_data => :environment }) do
 
   if Rails.env.development?
     FollowRequest.destroy_all
+    Comment.destroy_all
     Like.destroy_all
     Photo.destroy_all
-    Comment.destroy_all
     User.destroy_all
   end
 
-  12.times do
-    name = Faker::Name.first_name.downcase
-    u = User.create(
-      email: "#{name}@example.com",
-      username: name,
+  usernames = Array.new { Faker::Name.first_name }
+
+  usernames << "alice"
+  usernames << "bob"
+
+  usernames.each do |username|
+    User.create(
+      email: "#{username}@example.com",
       password: "password",
+      username: username.downcase,
       private: [true, false].sample,
     )
   end
@@ -61,7 +65,9 @@ task({ :sample_data => :environment }) do
       end
     end
   end
+
   ending = Time.now
+
   p "There are now #{User.count} users."
   p "There are now #{FollowRequest.count} follow requests."
   p "There are now #{Photo.count} photos."
