@@ -29,5 +29,6 @@ module RailsTemplate
 
     config.action_controller.default_protect_from_forgery = true
     config.generators.system_tests = nil
+
   end
 end
