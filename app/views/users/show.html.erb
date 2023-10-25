@@ -15,13 +15,13 @@
         </div>
 
         <ul class="list-group list-group-flush">
-          <% photo.comments.each do |item| %>
+          <% photo.comments.each do |comment| %>
             <li class= "list-group-item">
               <div class="media">
                 <img src="..." class="mr-3" alt="...">
                 <div class="media-body">
-                  <h5 class="mt-0">M<%= comment.author.username %></h5>
-                  <p>  <%= comment %></p>
+                  <h5 class="mt-0"><%= comment.author.username %></h5>
+                  <p><%= comment.body %></p>
                 </div>
               </div>
 
@@ -30,10 +30,9 @@
         </ul>
 
         <div class="card-body">
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
+          <%= render "comments/form", comment: photo.comments.build %>
         </div>
       </div>
     </div>
-
-  <% end %>
+  </div>
+<% end %>
