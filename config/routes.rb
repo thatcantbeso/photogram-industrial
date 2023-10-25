@@ -11,5 +11,5 @@ Rails.application.routes.draw do
   resources :photos
   resources :users, only: :show
 
-  get "/username" => "users#show"
+  get "/:username" => "users#show"
 end
