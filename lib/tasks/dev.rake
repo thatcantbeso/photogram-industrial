@@ -14,6 +14,12 @@ task({ :sample_data => :environment }) do
 
   usernames << "alice"
   usernames << "bob"
+  usernames << "sam"
+  usernames << "tammy"
+  usernames << "brenda"
+  usernames << "carman"
+  usernames << "andre"
+  usernames << "ethan"
 
   usernames.each do |username|
     User.create(
@@ -33,6 +39,7 @@ task({ :sample_data => :environment }) do
         first_user.sent_follow_requests.create(
           recipient: second_user,
           status: FollowRequest.statuses.keys.sample,
+          
         )
       end
 
@@ -44,6 +51,7 @@ task({ :sample_data => :environment }) do
       end
     end
   end
+  
   users.each do |user|
     rand(15).times do
       photo = user.own_photos.create(
@@ -52,7 +60,7 @@ task({ :sample_data => :environment }) do
       )
 
       user.followers.each do |follower|
-        if rand < 0.5
+        if rand < 0.5 && !photo.fans.include?(follower)
           photo.fans << follower
         end
 
