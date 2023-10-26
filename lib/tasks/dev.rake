@@ -39,7 +39,6 @@ task({ :sample_data => :environment }) do
         first_user.sent_follow_requests.create(
           recipient: second_user,
           status: FollowRequest.statuses.keys.sample,
-          
         )
       end
 
@@ -51,7 +50,7 @@ task({ :sample_data => :environment }) do
       end
     end
   end
-  
+
   users.each do |user|
     rand(15).times do
       photo = user.own_photos.create(
