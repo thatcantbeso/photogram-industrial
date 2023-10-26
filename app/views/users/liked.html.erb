@@ -12,18 +12,19 @@
       <li class="nav-item">
         <%= link_to "Liked Photos", liked_path(@user.username), class: "nav-link " %>
       </li>
+    
+      <li class="nav-item">
+        <%= link_to "Feed", feed_path(@user.username), class: "nav-link " %>
+      </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="#">Liked photos</a>
+        <%= link_to "Followers", followers_path(@user.username), class: "nav-link " %>
       </li>
+
       <li class="nav-item">
-        <a class="nav-link" href="#">Feed</a>
+        <%= link_to "Following", following_path(@user.username), class: "nav-link " %>
       </li>
-      <li class="nav-item">
-        <a class="nav-link disabled">Followers</a>
-        <li class="nav-item">
-          <a class="nav-link disabled">Following</a>
-        </li>
+      
       </ul>
 
     </div>
@@ -31,34 +32,6 @@
 
   <%= current_user.liked_photos.count %>
   <% current_user.own_photos.each do |photo| %>
-    <div class="row mb-4">
-      <div class="col-md-6 offset-md-4">
-        <div class="card">
-          <%= image_tag photo.image, class: "card-img-top" %>
-          <div class="card-body">
-            <h5 class="card-title"><%= photo.owner.username%></h5>
-            <p class="card-text"><%= photo.caption %></p>
-          </div>
-
-          <ul class="list-group list-group-flush">
-            <% photo.comments.each do |comment| %>
-              <li class= "list-group-item">
-                <div class="media">
-                  <img src="..." class="mr-3" alt="...">
-                  <div class="media-body">
-                    <h5 class="mt-0"><%= comment.author.username %></h5>
-                    <p><%= comment.body %></p>
-                  </div>
-                </div>
-
-              </li>
-            <% end %>
-          </ul>
-
-          <div class="card-body">
-            <%= render "comments/form", comment: photo.comments.build %>
-          </div>
-        </div>
-      </div>
-    </div>
+    <%= render "photos/photo", photo: photo %>
   <% end %>
+ 
