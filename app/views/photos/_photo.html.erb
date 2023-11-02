@@ -1,27 +1,30 @@
-<div id="<%= dom_id photo %>">
-  <p>
-    <strong>Image:</strong>
-    <%= photo.image %>
-  </p>
+    <div class="row mb-4">
+      <div class="col-md-6 offset-md-4">
+        <div class="card">
+          <%= image_tag photo.image, class: "card-img-top" %>
+          <div class="card-body">
+            <h5 class="card-title"><%= photo.owner.username%></h5>
+            <p class="card-text"><%= photo.caption %></p>
+          </div>
 
-  <p>
-    <strong>Comments count:</strong>
-    <%= photo.comments_count %>
-  </p>
+          <ul class="list-group list-group-flush">
+            <% photo.comments.each do |comment| %>
+              <li class= "list-group-item">
+                <div class="media">
+                  <img src="..." class="mr-3" alt="...">
+                  <div class="media-body">
+                    <h5 class="mt-0"><%= comment.author.username %></h5>
+                    <p><%= comment.body %></p>
+                  </div>
+                </div>
 
-  <p>
-    <strong>Likes count:</strong>
-    <%= photo.likes_count %>
-  </p>
+              </li>
+            <% end %>
+          </ul>
 
-  <p>
-    <strong>Caption:</strong>
-    <%= photo.caption %>
-  </p>
-
-  <p>
-    <strong>Owner:</strong>
-    <%= photo.owner_id %>
-  </p>
-
-</div>
+          <div class="card-body">
+            <%= render "comments/form", comment: photo.comments.build %>
+          </div>
+        </div>
+      </div>
+    </div>
